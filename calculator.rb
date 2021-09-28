@@ -7,7 +7,7 @@ def valid_number?(number)
 end
 
 def new_calculation?
-  prompt("Would you like to perform another calculation? (Y to perform new calculation)")
+  prompt("Would you like to perform another calculation? (Y or N)")
   answer = gets.chomp.downcase
   answer.start_with?('y')
 end
@@ -52,26 +52,26 @@ loop do
   loop do
     prompt("What is the first number?")
     number1 = gets.chomp
-  
+
     if valid_number?(number1)
       break
     else
       prompt("Please enter a valid number.")
     end
   end
-  
+
   number2 = ''
   loop do
     prompt("What is the second number?")
     number2 = gets.chomp
-  
+
     if valid_number?(number2)
       break
     else
       prompt("Please enter a valid number.")
     end
   end
-  
+
   prompt(operator_prompt)
 
   operator = ''
@@ -85,28 +85,18 @@ loop do
   end
 
   prompt("#{operation_to_message(operator)} the two values...")
-  
-  if operator == '1'
-    result = number1.to_i + number2.to_i
-  elsif operator == '2'
-    result = number1.to_i - number2.to_i
-  elsif operator == '3'
-    result = number1.to_i * number2.to_i
-  elsif operator == '4'
-    result = number1.to_f / number2.to_f
-  end
-  
+
   result = case operator
-          when '1'
-            number1.to_i + number2.to_i
-          when '2'
-            number1.to_i - number2.to_i
-          when '3'
-            result = number1.to_i * number2.to_i
-          when '4'
-            result = number1.to_f / number2.to_f
-  end
-  
+           when '1'
+             number1.to_i + number2.to_i
+           when '2'
+             number1.to_i - number2.to_i
+           when '3'
+             number1.to_i * number2.to_i
+           when '4'
+             number1.to_f / number2.to_f
+           end
+
   puts "The result is: #{result}."
 
   break unless new_calculation?
