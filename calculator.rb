@@ -2,8 +2,16 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def integer?(number)
+  number == number.to_i.to_s
+end
+
+def float?(number)
+  number == number.to_f.to_s
+end
+
 def valid_number?(number)
-  number == '0' || number.to_i != 0
+  integer?(number) || float?(number)
 end
 
 def new_calculation?
@@ -13,16 +21,18 @@ def new_calculation?
 end
 
 def operation_to_message(operator)
-  case operator
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  result = case operator
+            when '1'
+              'Adding'
+            when '2'
+              'Subtracting'
+            when '3'
+              'Multiplying'
+            when '4'
+              'Dividing'
+            end
+
+  result
 end
 
 operator_prompt = <<-MSG
