@@ -22,15 +22,15 @@ end
 
 def operation_to_message(operator)
   result = case operator
-            when '1'
-              'Adding'
-            when '2'
-              'Subtracting'
-            when '3'
-              'Multiplying'
-            when '4'
-              'Dividing'
-            end
+           when '1'
+             'Adding'
+           when '2'
+             'Subtracting'
+           when '3'
+             'Multiplying'
+           when '4'
+             'Dividing'
+           end
 
   result
 end
