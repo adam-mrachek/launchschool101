@@ -20,7 +20,8 @@ def number?(input)
 end
 
 def calculate_monthly_payment(amount, apr, duration_months)
-  monthly_rate = (apr.to_f / 100) / 12                                             # Convert APR to percent then divde by 12 to get monthly rate
+  # Convert APR to percent then divde by 12 to get monthly rate
+  monthly_rate = (apr.to_f / 100) / 12
   amount.to_f * (monthly_rate / (1 - (1 + monthly_rate)**(-duration_months.to_f)))
 end
 
