@@ -14,8 +14,29 @@ WINNING_MOVES = {
   "s" => "p"
 }
 
+def player_move
+  move = ""
+  loop do
+    prompt("Choose (r)ock, (p)aper, or (s)cissors:")
+    move = gets.chomp.downcase
+
+    if MOVES.keys.include?(move)
+      break
+    else
+      prompt("That's not a valid choice.")
+    end
+  end
+
+  move
+end
+
 def winner?(move, other_move)
   WINNING_MOVES[move] == other_move
+end
+
+def display_moves(player, computer)
+  prompt("You chose: #{MOVES[player]}")
+  prompt("Computer chose: #{MOVES[computer]}")
 end
 
 def display_winner(player, computer)
@@ -47,23 +68,11 @@ end
 prompt("Welcome to Rock, Paper, Scissors!")
 
 loop do
-  player_choice = ""
-
-  loop do
-    prompt("Choose (r)ock, (p)aper, or (s)cissors:")
-    player_choice = gets.chomp.downcase
-
-    if MOVES.keys.include?(player_choice)
-      break
-    else
-      prompt("That's not a valid choice.")
-    end
-  end
+  player_choice = player_move
 
   computer_choice = %w(r p s).sample
 
-  prompt("You chose: #{MOVES[player_choice]}")
-  prompt("Computer chose: #{MOVES[computer_choice]}")
+  display_moves(player_choice, computer_choice)
 
   display_winner(player_choice, computer_choice)
 
