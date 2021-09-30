@@ -54,7 +54,7 @@ def play_again?
   loop do
     prompt("Do you want to play again? y/n")
     response = gets.chomp.downcase
-  
+
     if %w(y n).include?(response)
       break
     else
@@ -78,6 +78,5 @@ loop do
 
   break unless play_again?
 end
-
 
 prompt("Thanks for playing!")
