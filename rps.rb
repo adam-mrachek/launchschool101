@@ -5,19 +5,23 @@ end
 MOVES = {
   "r" => "rock",
   "p" => "paper",
-  "s" => "scissors"
+  "sc" => "scissors",
+  "l" => "lizard",
+  "sp" => "spock"
 }
 
 WINNING_MOVES = {
-  "r" => "s",
-  "p" => "r",
-  "s" => "p"
+  "rock" => ["scissors", "lizard"],
+  "paper" => ["rock", "spock"],
+  "scissors" => ["paper", "lizard"],
+  "lizard" => ["paper", "spock"],
+  "spock" => ["scissors", "rock"]
 }
 
 def player_move
   move = ""
   loop do
-    prompt("Choose (r)ock, (p)aper, or (s)cissors:")
+    prompt("Choose (r)ock, (p)aper, (sc)issors, (l)izard, (sp)ock:")
     move = gets.chomp.downcase
 
     if MOVES.keys.include?(move)
@@ -27,16 +31,16 @@ def player_move
     end
   end
 
-  move
+  MOVES[move]
 end
 
 def winner?(move, other_move)
-  WINNING_MOVES[move] == other_move
+  WINNING_MOVES[move].include?(other_move)
 end
 
 def display_moves(player, computer)
-  prompt("You chose: #{MOVES[player]}")
-  prompt("Computer chose: #{MOVES[computer]}")
+  prompt("You chose: #{player}")
+  prompt("Computer chose: #{computer}")
 end
 
 def display_winner(player, computer)
@@ -65,12 +69,12 @@ def play_again?
   response == 'y'
 end
 
-prompt("Welcome to Rock, Paper, Scissors!")
+prompt("Welcome to Rock, Paper, Scissors, Lizard, Spock!")
 
 loop do
   player_choice = player_move
 
-  computer_choice = %w(r p s).sample
+  computer_choice = %w(rock paper scissors lizard spock).sample
 
   display_moves(player_choice, computer_choice)
 
