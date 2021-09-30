@@ -43,13 +43,48 @@ def display_moves(player, computer)
   prompt("Computer chose: #{computer}")
 end
 
-def display_winner(player, computer)
-  if winner?(player, computer)
+def determine_winner(player_move, computer_move)
+  if WINNING_MOVES[player_move].include?(computer_move)
+    'player'
+  elsif WINNING_MOVES[computer_move].include?(player_move)
+    'computer'
+  else
+    'tie'
+  end
+end
+
+def display_winner(winner)
+  if winner == 'player'
     puts "You win!"
-  elsif winner?(computer, player)
+  elsif winner == 'computer'
     puts "Computer wins!"
   else
     puts "It's a tie!"
+  end
+end
+
+def update_score(winner, score)
+  if winner == 'player'
+    score[:player] += 1
+  else winner == 'computer'
+    score[:computer] += 1
+  end
+end
+
+def display_score(score)
+  prompt("SCORE")
+  prompt("Player: #{score[:player]}, Computer: #{score[:computer]}")
+end
+
+def game_winner?(score)
+  score[:player] == 3 || score[:computer] == 3
+end
+
+def display_game_winner(score)
+  if score[:player] == 3
+    prompt("You won the game!")
+  elsif score[:computer] == 3
+    prompt("Computer won the game!")
   end
 end
 
@@ -72,13 +107,27 @@ end
 prompt("Welcome to Rock, Paper, Scissors, Lizard, Spock!")
 
 loop do
-  player_choice = player_move
 
-  computer_choice = %w(rock paper scissors lizard spock).sample
+  score = {
+    player: 0,
+    computer: 0
+  }
 
-  display_moves(player_choice, computer_choice)
+  loop do
+    player_choice = player_move
 
-  display_winner(player_choice, computer_choice)
+    computer_choice = %w(rock paper scissors lizard spock).sample
+  
+    display_moves(player_choice, computer_choice)
+    winner = determine_winner(player_choice, computer_choice)
+    display_winner(winner)
+    update_score(winner, score)
+    display_score(score)
+
+    break if game_winner?(score)
+  end
+
+  display_game_winner(score)
 
   break unless play_again?
 end
